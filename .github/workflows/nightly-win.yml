@@ -48,7 +48,7 @@ jobs:
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=0 --launch
+        ./configure --lto=on --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=1 --launch
         cd build
         make pkg.create.zip
         
@@ -161,7 +161,7 @@ jobs:
       run: |
         wget https://github.com/Uranite/mingw-w64-build/releases/download/10.3.0/mingw-w64-toolchain-10.3.0-msvcrt-linux-x86_64.tar.gz
         SHA=$(sha1sum mingw-w64-toolchain-10.3.0-msvcrt-linux-x86_64.tar.gz)
-        EXPECTED="c919ab3147be089d1d57ca4302388dc9124405b7  mingw-w64-toolchain-10.3.0-msvcrt-linux-x86_64.tar.gz"
+        EXPECTED="10a6855211d0db881ba5027a0f549cf5284a6134  mingw-w64-toolchain-10.3.0-msvcrt-linux-x86_64.tar.gz"
         if [ "$SHA" == "$EXPECTED" ];
         then
             echo "Toolchain Verified. Extracting ..."
@@ -187,7 +187,7 @@ jobs:
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --cross=x86_64-w64-mingw32 --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
+        ./configure --lto=on --cross=x86_64-w64-mingw32 --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=1 --launch
         cd build
         make pkg.create.zip
 
