@@ -48,11 +48,12 @@ jobs:
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
+        export PATH="$CWDIR/toolchains/llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --lto=on --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=1 --launch
+        ./configure --lto=thin --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=1 --launch
         cd build
         make pkg.create.zip
         
