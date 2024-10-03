@@ -48,7 +48,7 @@ jobs:
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --lto=thin --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=1 --launch
+        ./configure --lto=on --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=0 --launch
         cd build
         make pkg.create.zip
         
@@ -153,9 +153,14 @@ jobs:
 
     - name: Setup Environment
       run: |
+        sudo apt-get update
         sudo apt-get purge cmake -y
         sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
         rustup target add x86_64-pc-windows-gnu
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh 19
+        sudo apt-get install llvm-19 llvm-19-dev
 
     - name: Setup Toolchain
       run: |
@@ -187,7 +192,7 @@ jobs:
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --lto=on --cross=x86_64-w64-mingw32 --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=1 --launch
+        ./configure --lto=on --cross=x86_64-w64-mingw32 --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
         cd build
         make pkg.create.zip
 
