@@ -20,6 +20,7 @@ jobs:
 
     - name: Setup Environment
       run: |
+        sudo apt-get update
         sudo apt-get purge cmake -y
         sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
         wget https://apt.llvm.org/llvm.sh
@@ -47,7 +48,6 @@ jobs:
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
