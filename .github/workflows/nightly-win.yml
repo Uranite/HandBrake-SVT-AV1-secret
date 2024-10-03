@@ -185,6 +185,10 @@ jobs:
         CWDIR=$(pwd)
         export PATH="$CWDIR/toolchains/mingw-w64-toolchain-10.3.0-ucrt-linux-x86_64/mingw-w64-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
+        export AR=x86_64-w64-mingw32-gcc-ar
+        export NM=x86_64-w64-mingw32-gcc-nm
+        export RANLIB=x86_64-w64-mingw32-gcc-ranlib
+
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
