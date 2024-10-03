@@ -23,14 +23,32 @@ jobs:
         sudo ./llvm.sh 19
         sudo apt-get install llvm-19 llvm-19-dev
 
+    - name: Setup Toolchain
+      run: |
+        wget https://github.com/mstorsjo/llvm-mingw/releases/download/20241001/llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64.tar.xz
+        SHA=$(sha1sum llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64.tar.xz)
+        EXPECTED="65450e9a10ece0b6c6fae37092982accde3774be  llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64.tar.xz"
+        if [ "$SHA" == "$EXPECTED" ];
+        then
+            echo "Toolchain Verified. Extracting ..."
+            mkdir toolchains
+            mv llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64.tar.xz toolchains
+            cd toolchains
+            tar xvf llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64.tar.xz
+        else
+            echo "Toolchain Verification FAILED. Exiting!"
+            exit 1
+        fi
+        
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
+        export PATH="$CWDIR/toolchains/llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --lto=on --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=1 --launch
+        ./configure --lto=thin --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=1 --launch
         cd build
         make pkg.create.zip
         
