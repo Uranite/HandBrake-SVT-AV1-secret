@@ -19,7 +19,7 @@ source=("HandBrake::git+https://github.com/HandBrake/HandBrake.git" "HandBrake-S
 _commondeps=(libxml2 libass libvorbis opus speex libtheora lame libjpeg-turbo
              x264 libx264.so jansson libvpx libva numactl)
 _guideps=(gst-plugins-base gtk4 libgudev)
-makedepends=(git intltool python nasm wget cmake meson cargo-c base-devel
+makedepends=(git intltool python nasm wget cmake meson cargo-c
              "${_commondeps[@]}" "${_guideps[@]}")
 optdepends=('libdvdcss: for decoding encrypted DVDs'
             'intel-media-sdk: for enabling Intel QSV'
