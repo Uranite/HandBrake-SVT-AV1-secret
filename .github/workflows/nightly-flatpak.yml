@@ -59,9 +59,9 @@ jobs:
     - name: Build HandBrake
       run: |
         cd HandBrake
-        ./configure --launch-jobs=1 --flatpak --enable-qsv --enable-vce --enable-nvenc --enable-nvdec
+        ./configure --launch-jobs=$(nproc) --flatpak --enable-qsv --enable-vce --enable-nvenc --enable-nvdec
         cd build
-        nice make pkg.create.flatpak --jobs=1
+        make pkg.create.flatpak --jobs=$(nproc)
 
     - name: Upload Assets
       uses: actions/upload-artifact@v4
