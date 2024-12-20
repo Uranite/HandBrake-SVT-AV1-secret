@@ -1,0 +1,28 @@
+name: Check Xcode Versions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-xcode:
+    name: Check Xcode and LLVM versions
+    runs-on: macos-15
+    steps:
+    - name: List all Xcode installations
+      run: |
+        echo "Available Xcode installations:"
+        ls -l /Applications/ | grep Xcode
+    - name: Check LLVM versions for each Xcode
+      run: |
+        for xcode in /Applications/Xcode*.app; do
+          echo "----------------------------------------"
+          echo "Checking $xcode"
+          export DEVELOPER_DIR="$xcode/Contents/Developer"
+          echo "Default LLVM version:"
+          clang --version
+          echo "----------------------------------------"
+        done
+    - name: System default LLVM
+      run: |
+        echo "System default LLVM version:"
+        clang --version
