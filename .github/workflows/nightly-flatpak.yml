@@ -10,9 +10,6 @@ jobs:
   build:
     name: Build on Linux
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        runner: [large]
     steps:
     - uses: actions/checkout@v4
 
