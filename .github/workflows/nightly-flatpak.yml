@@ -62,7 +62,7 @@ jobs:
     - name: Build HandBrake
       run: |
         cd HandBrake
-        ./configure --launch-jobs=$(nproc) --flatpak --enable-qsv --enable-vce --enable-nvenc --enable-nvdec
+        ./configure --launch-jobs=0 --flatpak --enable-qsv --enable-vce --enable-nvenc --enable-nvdec
         cd build
         make pkg.create.flatpak --jobs=$(nproc)
 
