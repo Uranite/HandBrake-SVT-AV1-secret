@@ -26,6 +26,14 @@ jobs:
           ~/.cargo/bin/cargo-cinstall
         key: linux-cargo-c-toolchain
 
+    - name: Cache Flatpak dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.local/share/flatpak
+          ~/.cache/flatpak
+        key: ${{ runner.os }}-flatpak-${{ hashFiles('**/org.handbrake.HandBrake.json') }}
+
     - name: Setup Environment
       run: |
         sudo apt-get update
