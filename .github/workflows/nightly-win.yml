@@ -55,7 +55,22 @@ jobs:
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --lto=on --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=0 --launch
+        export CC="/usr/bin/clang"
+        unset CFLAGS
+        export CXX="/usr/bin/clang++"
+        unset CXXFLAGS
+        export CPP="/usr/bin/clang-cpp"
+        export LD="/usr/bin/lld"
+        export LDFLAGS="-fuse-ld=lld"
+        export AR="/usr/bin/llvm-ar"
+        export RANLIB="/usr/bin/llvm-ranlib"
+        export NM="/usr/bin/llvm-nm"
+        export ADDR2LINE="/usr/bin/llvm-addr2line"
+        export OBJCOPY="/usr/bin/llvm-objcopy"
+        export OBJDUMP="/usr/bin/llvm-objdump"
+        export READELF="/usr/bin/llvm-readelf"
+        export STRIP="/usr/bin/llvm-strip"
+        ./configure --lto=on --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=0 --launch --cc="${CC}" --ar="${AR}" --ranlib="${RANLIB}" --strip="${STRIP}"
         cd build
         make pkg.create.zip
         
