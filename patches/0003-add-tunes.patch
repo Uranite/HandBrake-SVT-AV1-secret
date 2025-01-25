@@ -1,16 +1,16 @@
 diff --git a/libhb/encsvtav1.c b/libhb/encsvtav1.c
-index 2f16984d5..f7913036d 100644
+index 2f16984d5..8fba6521a 100644
 --- a/libhb/encsvtav1.c
 +++ b/libhb/encsvtav1.c
 @@ -188,6 +188,14 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
      {
          param->tune = 2;
      }
-+    else if (job->encoder_tune != NULL && strstr("subjective ssim", job->encoder_tune) != NULL)
++    else if (job->encoder_tune != NULL && strstr("subjectivessim", job->encoder_tune) != NULL)
 +    {
 +        param->tune = 3;
 +    }
-+    else if (job->encoder_tune != NULL && strstr("still picture", job->encoder_tune) != NULL)
++    else if (job->encoder_tune != NULL && strstr("stillpicture", job->encoder_tune) != NULL)
 +    {
 +        param->tune = 4;
 +    }
@@ -19,7 +19,7 @@ index 2f16984d5..f7913036d 100644
          param->tune = 1;
 
 diff --git a/libhb/handbrake/av1_common.h b/libhb/handbrake/av1_common.h
-index 6d53a9dac..31158f6d0 100644
+index 6d53a9dac..9e1123fd8 100644
 --- a/libhb/handbrake/av1_common.h
 +++ b/libhb/handbrake/av1_common.h
 @@ -31,7 +31,7 @@ static const char * const hb_av1_svt_preset_names[] =
@@ -27,7 +27,23 @@ index 6d53a9dac..31158f6d0 100644
  static const char * const hb_av1_svt_tune_names[] =
  {
 -    "vq", "psnr", "ssim", "fastdecode", NULL
-+    "vq", "psnr", "ssim", "subjective ssim", "still picture", "fastdecode", NULL
++    "vq", "psnr", "ssim", "subjectivessim", "stillpicture", "fastdecode", NULL
  };
  
  static const char * const hb_av1_svt_profile_names[] =
+
+diff --git a/win/CS/HandBrakeWPF/Services/Encode/Factories/VideoTuneFactory.cs b/win/CS/HandBrakeWPF/Services/Encode/Factories/VideoTuneFactory.cs
+index e2234643e..71ed7a1b7 100644
+--- a/win/CS/HandBrakeWPF/Services/Encode/Factories/VideoTuneFactory.cs
++++ b/win/CS/HandBrakeWPF/Services/Encode/Factories/VideoTuneFactory.cs
+@@ -44,6 +44,10 @@ namespace HandBrakeWPF.Services.Encode.Factories
+                     return "PSNR";
+                 case "ssim":
+                     return "SSIM";
++                case "subjectivessim":
++                    return "Subjective SSIM";
++                case "stillpicture":
++                    return "Still Picture";
+                 case "screen":
+                     return "Screen";
+                 case "fastdecode":
