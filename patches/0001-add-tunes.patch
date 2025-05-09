@@ -1,16 +1,16 @@
 diff --git a/libhb/encsvtav1.c b/libhb/encsvtav1.c
-index 2f16984d5..f7913036d 100644
+index 54f52a117..7b86c2c37 100644
 --- a/libhb/encsvtav1.c
 +++ b/libhb/encsvtav1.c
 @@ -188,6 +188,14 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
      {
          param->tune = 2;
      }
-+    else if (job->encoder_tune != NULL && strstr("filmgrain", job->encoder_tune) != NULL)
++    else if (job->encoder_tune != NULL && !strcmp(job->encoder_tune, "filmgrain"))
 +    {
 +        param->tune = 3;
 +    }
-+    else if (job->encoder_tune != NULL && strstr("stillpicture", job->encoder_tune) != NULL)
++    else if (job->encoder_tune != NULL && !strcmp(job->encoder_tune, "stillpicture"))
 +    {
 +        param->tune = 4;
 +    }
