@@ -6,11 +6,11 @@ index 2f16984d5..f7913036d 100644
      {
          param->tune = 2;
      }
-+    else if (job->encoder_tune != NULL && strstr("grain", job->encoder_tune) != NULL)
++    else if (job->encoder_tune != NULL && strstr("filmgrain", job->encoder_tune) != NULL)
 +    {
 +        param->tune = 3;
 +    }
-+    else if (job->encoder_tune != NULL && strstr("still picture", job->encoder_tune) != NULL)
++    else if (job->encoder_tune != NULL && strstr("stillpicture", job->encoder_tune) != NULL)
 +    {
 +        param->tune = 4;
 +    }
@@ -27,7 +27,30 @@ index 6d53a9dac..31158f6d0 100644
  static const char * const hb_av1_svt_tune_names[] =
  {
 -    "vq", "psnr", "ssim", "fastdecode", NULL
-+    "vq", "psnr", "ssim", "grain", "still picture", "fastdecode", NULL
++    "vq", "psnr", "ssim", "filmgrain", "stillpicture", "fastdecode", NULL
  };
  
  static const char * const hb_av1_svt_profile_names[] =
+
+diff --git a/win/CS/HandBrakeWPF/Services/Encode/Factories/VideoTuneFactory.cs b/win/CS/HandBrakeWPF/Services/Encode/Factories/VideoTuneFactory.cs
+index e2234643e..8a5a31f1a 100644
+--- a/win/CS/HandBrakeWPF/Services/Encode/Factories/VideoTuneFactory.cs
++++ b/win/CS/HandBrakeWPF/Services/Encode/Factories/VideoTuneFactory.cs
+@@ -32,6 +32,8 @@ namespace HandBrakeWPF.Services.Encode.Factories
+                     return "Auto";
+                 case "film":
+                     return "Film";
++                case "filmgrain":
++                    return "Film Grain";
+                 case "animation":
+                     return "Animation";
+                 case "grain":
+@@ -46,6 +48,8 @@ namespace HandBrakeWPF.Services.Encode.Factories
+                     return "SSIM";
+                 case "screen":
+                     return "Screen";
++                case "stillpicture":
++                    return "Still Picture";
+                 case "fastdecode":
+                     return "Fast Decode";
+                 case "zerolatency":
