@@ -49,7 +49,7 @@ jobs:
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=0 --launch
+        ./configure --lto=on --cross=aarch64-w64-mingw32 --enable-mf --launch-jobs=0 --launch
         cd build
         make pkg.create.zip
         
@@ -189,7 +189,7 @@ jobs:
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
         cd HandBrake
-        ./configure --cross=x86_64-w64-mingw32 --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
+        ./configure --lto=on --cross=x86_64-w64-mingw32 --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
         cd build
         make pkg.create.zip
 
