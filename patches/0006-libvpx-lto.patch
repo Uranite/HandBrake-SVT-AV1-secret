@@ -7,7 +7,7 @@ index 8f05a9d21..88e6d2d09 100644
      --disable-unit-tests
  
 +ifeq (on,$(GCC.lto))
-+    LIBVPX.CONFIGURE.extra += --extra-cxxflags="-ffat-lto-objects -flto" --extra-cflags="-ffat-lto-objects -flto"
++    LIBVPX.CONFIGURE.extra += --extra-cxxflags="-fPIC -flto" --extra-cflags="-fPIC -flto"
 +endif
  
  ifeq (1,$(HOST.cross))
