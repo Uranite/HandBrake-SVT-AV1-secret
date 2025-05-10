@@ -1,0 +1,14 @@
+diff --git a/contrib/libvpx/module.defs b/contrib/libvpx/module.defs
+index 8f05a9d21..88e6d2d09 100644
+--- a/contrib/libvpx/module.defs
++++ b/contrib/libvpx/module.defs
+@@ -20,6 +20,9 @@ LIBVPX.CONFIGURE.extra =     \
+     --disable-docs              \
+     --disable-unit-tests
+ 
++ifeq (on,$(GCC.lto))
++    LIBVPX.CONFIGURE.extra += --extra-cxxflags="-ffat-lto-objects -flto" --extra-cflags="-ffat-lto-objects -flto"
++endif
+ 
+ ifeq (1,$(HOST.cross))
+     LIBVPX.CONFIGURE.args.build =
